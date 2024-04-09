@@ -1,0 +1,29 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${default}",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/home/sahugf/ariac_ws/install/nist_competitor/include/**",
+        "/home/sahugf/ariac_ws/install/ariac_sensors/include/**",
+        "/home/sahugf/ariac_ws/install/ariac_plugins/include/**",
+        "/home/sahugf/ariac_ws/install/ariac_msgs/include/**",
+        "/home/sahugf/ariac_ws/install/ariac_controllers/include/**",
+        "/opt/ros/iron/include/**",
+        "/home/sahugf/ariac_ws/src/ARIAC/ariac_controllers/include/**",
+        "/home/sahugf/ariac_ws/src/ARIAC/ariac_plugins/include/**",
+        "/home/sahugf/ariac_ws/src/ARIAC/ariac_sensors/include/**",
+        "/home/sahugf/ariac_ws/src/nist_competitor/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++14"
+    }
+  ],
+  "version": 4
+}
