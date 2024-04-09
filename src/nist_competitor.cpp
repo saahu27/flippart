@@ -151,7 +151,7 @@ void NistCompetitor::PublishTransform()
   
   tf2::fromMsg(BuildPose(0, 0, 0, QuaternionFromRPY(0, 0, M_PI)), part_to_gripper);
 
-  KDL::Vector away1(0, 0, 0.1);
+  KDL::Vector away1(0, 0, -0.1);
   KDL::Vector away2(0, 0, 0.005);
 
   geometry_msgs::msg::TransformStamped tray_to_part_msg;
@@ -172,7 +172,19 @@ void NistCompetitor::PublishTransform()
   part_to_gripper_msg.transform.translation.y = tf2::toMsg(part_to_gripper).position.y;
   part_to_gripper_msg.transform.translation.z = tf2::toMsg(part_to_gripper).position.z;
   part_to_gripper_msg.transform.rotation = tf2::toMsg(part_to_gripper).orientation;
-  transform_broadcaster_->sendTransform(tray_to_part_msg);
+  transform_broadcaster_->sendTransform(part_to_gripper_msg);
+
+  auto planning_frame = tf2::toMsg(world_to_tray * tray_to_part * part_to_gripper * KDL::Frame(away1));
+
+  geometry_msgs::msg::TransformStamped planning_to_msg;
+  planning_to_msg.header.stamp= this->now();
+  planning_to_msg.header.frame_id= "world";
+  planning_to_msg.child_frame_id = "planning_to";
+  planning_to_msg.transform.translation.x = planning_frame.position.x;
+  planning_to_msg.transform.translation.y = planning_frame.position.y;
+  planning_to_msg.transform.translation.z = planning_frame.position.z;
+  planning_to_msg.transform.rotation = planning_frame.orientation;
+  transform_broadcaster_->sendTransform(planning_to_msg);
 }
 
 NistCompetitor::~NistCompetitor()
@@ -1622,8 +1634,8 @@ bool NistCompetitor::CeilingRobotPickAGVPart(ariac_msgs::msg::PartPose part)
   
   tf2::fromMsg(BuildPose(0, 0, 0, QuaternionFromRPY(0, 0, M_PI)), part_to_gripper);
 
-  KDL::Vector away1(0, 0, 0.1);
-  KDL::Vector away2(0, 0, 0.005);
+  KDL::Vector away1(0, 0, -0.1);
+  KDL::Vector away2(0, 0, -0.005);
 
   // waypoints.clear();
   
